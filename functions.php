@@ -70,6 +70,9 @@ require_once(get_theme_file_path( '/inc/ajax/is-user-manager.php' ));
 add_action('wp_ajax_nopriv_is_user_manager', 'is_user_manager');
 add_action('wp_ajax_is_user_manager', 'is_user_manager');
 
+// Elementor hooks (used mainly in the dashboard )
+require_once __DIR__ . '/inc/elementor/elementor.php';
+
 // Remove Actions
 
 remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
