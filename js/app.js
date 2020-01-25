@@ -25,6 +25,10 @@ import InitProduct from "./modules/InitProduct";
 const timer = new InitTimer();
 const init = new InitProduct(timer);
 
+if(document.querySelector('.single-product-admin-dashboard')) {
+  init.restrictSingleProductDashboard();
+}
+
 // The countDown clock
 import { Countdown } from './modules/Codpen';
   Countdown.init(); 
@@ -50,9 +54,7 @@ misc.remove();
 misc.inputOffer();
 misc.changeText();
 
-if(document.querySelector('.single-product-admin-dashboard')) {
-  misc.restrictSingleProductDashboard();
-}
+
 // misc.conf();
 
 // form registration valdations

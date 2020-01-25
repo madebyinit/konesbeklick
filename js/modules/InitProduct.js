@@ -61,5 +61,21 @@ export default class InitProduct {
         this.time.m.textContent = time.minutes < 0 ? 0 : time.minutes;
         this.time.s.textContent = time.sec < 0 ? 0 : time.sec;
     }
+
+    restrictSingleProductDashboard() {
+
+        var data = {
+          action: 'is_user_manager',
+          userid: shimi_obj.user_id
+        };
+      
+        $.post(shimi_obj.ajax_url, data, (res) => {
+          if(res == 'true') {
+            $('.single-product-admin-dashboard').addClass('user-can-access');
+          } else {
+            $('.single-product-admin-dashboard').remove();
+          }
+        });
+    }      
 }
 
