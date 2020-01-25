@@ -25,7 +25,7 @@ import InitProduct from "./modules/InitProduct";
 const timer = new InitTimer();
 const init = new InitProduct(timer);
 
-if(document.querySelector('.single-product-admin-dashboard')) {
+if(document.querySelector('.single-product-admin-dashboard') && ! document.querySelector('body').classList.contains('elementor-editor-active')) {
   init.restrictSingleProductDashboard();
 }
 
