@@ -965,3 +965,7 @@ Registration
     transform: scale(1);
     opacity: 1;
 }
+
+.single-product-admin-dashboard:not(.user-can-access) {
+    display: none !important;
+}

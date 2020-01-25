@@ -66,6 +66,10 @@ add_action('wp_ajax_shimi_reg', 'shimi_reg');
 require_once(get_theme_file_path( '/inc/ajax/rest-api.php' ));
 add_action('rest_api_init', 'shimiTimer');
 
+require_once(get_theme_file_path( '/inc/ajax/is-user-manager.php' ));
+add_action('wp_ajax_nopriv_is_user_manager', 'is_user_manager');
+add_action('wp_ajax_is_user_manager', 'is_user_manager');
+
 // Remove Actions
 
 remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);

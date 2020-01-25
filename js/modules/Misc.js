@@ -35,3 +35,19 @@ export const conf = () => {
     }
   });
 }
+
+export const restrictSingleProductDashboard = () => {
+
+  var data = {
+    action: 'is_user_manager',
+    userid: shimi_obj.user_id
+  };
+
+  $.post(shimi_obj.ajax_url, data, (res) => {
+    if(res == 'true') {
+      $('.single-product-admin-dashboard').addClass('user-can-access');
+    } else {
+      $('.single-product-admin-dashboard').remove();
+    }
+  });
+}

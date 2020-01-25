@@ -49,6 +49,10 @@ import * as misc from './modules/Misc';
 misc.remove();
 misc.inputOffer();
 misc.changeText();
+
+if(document.querySelector('.single-product-admin-dashboard')) {
+  misc.restrictSingleProductDashboard();
+}
 // misc.conf();
 
 // form registration valdations
