@@ -39,7 +39,7 @@ add_action( 'after_setup_theme', 'shimi_add_woocommerce_support' );
 require_once(get_theme_file_path( '/inc/top-bid.php' ));
 require_once(get_theme_file_path( '/inc/admin-dashbord.php' ));
 require_once(get_theme_file_path( '/inc/countdown-title.php' ));
-require_once(get_theme_file_path( '/inc/shortcode.php' ));
+require_once(get_theme_file_path( '/inc/shortcodes/shortcodes.php' ));
 require_once(get_theme_file_path( '/inc/flex-acf.php' ));
 require_once(get_theme_file_path( '/inc/latest-offers.php' ));
 

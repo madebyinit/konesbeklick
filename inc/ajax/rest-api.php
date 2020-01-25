@@ -40,6 +40,11 @@ function shimiTimer() {
       ));
 
         $topbid = substr($results, 0, strpos($results, '.'));
+
+        if($topbid || empty($topbid) || $topbid == '0') {
+         $topbid = get_post_meta($id, 'woo_ua_opening_price', true);
+        }
+
         $times = array(
            'hours'   => floor($end_days * 24),
            'minutes' => floor($end_minutes),
@@ -66,7 +71,13 @@ function shimiTimer() {
       $IDs = explode(",", $param['id']);
 
       foreach($IDs as $id) {
-         $topBID[] = get_post_meta($id, 'topbid', true);
+         $top_bid = get_post_meta($id, 'topbid', true);
+
+         if(! $top_bid || empty($top_bid)) {
+            $top_bid = get_post_meta($id, 'woo_ua_opening_price', true);
+         }
+
+         $topBID[] = $top_bid;
       }
 
       return $topBID;

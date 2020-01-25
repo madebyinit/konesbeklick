@@ -3,7 +3,7 @@ import { formatNumber } from './FormatNumber';
 export default class UpdateHomeGrid {
 
     constructor() {
-        this.listsGrid = document.querySelectorAll('.products__grid li.shadow');
+        this.listsGrid = document.querySelectorAll('.jet-listing-grid__item');
         this.arrID = [];
     }
 
@@ -17,13 +17,13 @@ export default class UpdateHomeGrid {
     }
 
     collectId() {
-        this.listsGrid.forEach(list => this.arrID.push(list.getAttribute('data-id')));
+        this.listsGrid.forEach(list => this.arrID.push(list.getAttribute('data-post-id')));
         return this.arrID;
     }
 
     updateBid(res, self) {
         res.forEach((bid, index) => {
-            $(self.listsGrid).eq(index).find('.products__offer > .numToFormat').text(formatNumber(bid));
+            $(self.listsGrid).eq(index).find('.top-current-bid').text(formatNumber(bid));
         });
     }
 }

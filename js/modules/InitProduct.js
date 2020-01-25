@@ -17,7 +17,7 @@ export default class InitProduct {
     events() {
          $.getJSON(shimi_obj.root_url + '/wp-json/shimi/v1/timer?postid=' + this.id , (res) => {
             this.api = res;
-            console.log(res);
+
             this.bid = parseFloat(this.api[2]);
             this.inc = parseFloat(this.api[4]);
             this.topBid();

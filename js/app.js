@@ -11,10 +11,13 @@ gridShadow();
 // update the bid on home page grid
 import UpdateHomeGrid from './modules/UpdateHomeGrid';
 const updateHomeGrid = new UpdateHomeGrid();
-if(document.querySelector('li.shadow')) {
+
+if(document.querySelector('.jet-listing-grid__item')) {
+  updateHomeGrid.queryRestApi();
+
   setInterval(() => {
     updateHomeGrid.queryRestApi();
-  }, 5000);
+  }, 15000);
 }
 
 import InitTimer from "./modules/InitTimer";
