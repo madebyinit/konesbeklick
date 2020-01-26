@@ -29,6 +29,8 @@ const timer = new InitTimer();
 if(document.querySelector('body').classList.contains('single-product')) {
   const init = new InitProduct(timer);
 
+  init.latestBidsScroll();
+
   if(document.querySelector('.single-product-admin-dashboard') && ! document.querySelector('body').classList.contains('elementor-editor-active')) {
     init.restrictSingleProductDashboard();
   }

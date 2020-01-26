@@ -26,6 +26,8 @@ function shimi_reg() {
         $creds['remember'] = true;
         $user = wp_signon( $creds, false );
 
+        update_user_meta($user_id, 'billing_phone', $tel);
+
         wp_send_json(array(
             'user-id' => $user_id
         ), 200);

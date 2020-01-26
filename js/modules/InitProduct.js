@@ -99,6 +99,11 @@ export default class InitProduct {
             $('.single-product-admin-dashboard').remove();
           }
         });
-    }      
+    }
+    
+    latestBidsScroll() {
+        var element = document.querySelector('.auction-bidding-history--wrapper');
+        element.scrollTop = element.scrollHeight;
+    }
 }
 
