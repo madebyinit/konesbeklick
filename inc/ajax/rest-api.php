@@ -71,8 +71,16 @@ function shimiTimer() {
       $IDs = explode(",", $param['id']);
 
       foreach($IDs as $id) {
-         $top_bid = get_post_meta($id, 'topbid', true);
 
+         global $wpdb;
+         $table_name = $wpdb->prefix . 'woo_ua_auction_log';
+
+         $results = $wpdb->get_var($wpdb->prepare(
+            "SELECT MAX(bid) FROM {$table_name} WHERE auction_id = %d", $id
+         ));
+ 
+         $top_bid = substr($results, 0, strpos($results, '.'));
+ 
          if(! $top_bid || empty($top_bid)) {
             $top_bid = get_post_meta($id, 'woo_ua_opening_price', true);
          }
