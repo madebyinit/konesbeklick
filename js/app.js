@@ -14,7 +14,8 @@ const updateHomeGrid = new UpdateHomeGrid();
 
 if(document.querySelector('.jet-listing-grid__item')) {
   updateHomeGrid.queryRestApi();
-
+  updateHomeGrid.runTimer();
+  
   setInterval(() => {
     updateHomeGrid.queryRestApi();
   }, 15000);
@@ -22,11 +23,15 @@ if(document.querySelector('.jet-listing-grid__item')) {
 
 import InitTimer from "./modules/InitTimer";
 import InitProduct from "./modules/InitProduct";
-const timer = new InitTimer();
-const init = new InitProduct(timer);
 
-if(document.querySelector('.single-product-admin-dashboard') && ! document.querySelector('body').classList.contains('elementor-editor-active')) {
-  init.restrictSingleProductDashboard();
+const timer = new InitTimer();
+
+if(document.querySelector('body').classList.contains('single-product')) {
+  const init = new InitProduct(timer);
+
+  if(document.querySelector('.single-product-admin-dashboard') && ! document.querySelector('body').classList.contains('elementor-editor-active')) {
+    init.restrictSingleProductDashboard();
+  }
 }
 
 // The countDown clock

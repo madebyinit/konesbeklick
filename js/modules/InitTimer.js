@@ -9,7 +9,7 @@ class InitTimer {
     }
 
     // methods
-    timer(time, view) {
+    timer(time, view, reload = true) {
         this.updateClock(time, 'sec', view.s, 's');
         if(this.init.s === 59) {
             this.updateClock(time, 'minutes', view.m, 'm');
@@ -17,7 +17,7 @@ class InitTimer {
                 this.updateClock(time, 'hours', view.m, 'h');
             }
         }
-        if(this.init.s === 0 && this.init.m === 0 && this.init.h === 0) {
+        if(this.init.s === 0 && this.init.m === 0 && this.init.h === 0 && reload) {
             location.reload();
         }
     }
@@ -30,6 +30,7 @@ class InitTimer {
             else {
                 time[0][cprop] <= 0 ? time[0][cprop] = 0 : time[0][cprop]--;
             }
+
             viwe.textContent = time[0][cprop] >= 0 ? time[0][cprop] : 0;
             this.init[vprop] = time[0][cprop];
     }
