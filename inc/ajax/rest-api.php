@@ -41,7 +41,7 @@ function shimiTimer() {
 
         $topbid = substr($results, 0, strpos($results, '.'));
 
-        if($topbid || empty($topbid) || $topbid == '0') {
+        if(! $topbid || empty($topbid) || $topbid == '0') {
          $topbid = get_post_meta($id, 'woo_ua_opening_price', true);
         }
 

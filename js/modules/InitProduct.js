@@ -22,20 +22,23 @@ export default class InitProduct {
             this.inc = parseFloat(this.api[4]);
             this.topBid();
             this.bidInc();
-            $('#biding').on('click', (e) => {
+
+            $('body').on('click', '#popup-accept-bid', (e) => {
                 e.preventDefault();
                 this.clickToBid();
             });
+
             this.upDateClock(this.api[0]);
+
             setInterval(() => {
                 this.timer.timer(this.api, this.time);
             }, 1000);
-        })
-
+        });
     }
 
     // methods
     topBid() {
+        console.log(this.api);
         $('#top-bid').text(formatNumber(this.api[2]));
     }
 
@@ -50,9 +53,14 @@ export default class InitProduct {
             id: this.id,
             userid: shimi_obj.user_id
         }
+
         $.post(shimi_obj.ajax_url, form, (res) => {
-            $('#top-bid').text(formatNumber(res[0]));
+            console.log(res);
+            $('#top-bid').text(formatNumber(parseInt(res[0])));
+            console.log($('#top-bid'));
             this.events();
+
+            $('body').trigger('click');
         });
     }
 
