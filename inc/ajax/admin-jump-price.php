@@ -48,7 +48,7 @@ function admin_jump_price($is_ajax = true, $amount = null, $postid = null, $user
                 'sec' => date('s', $now_one_minute)
             );
 
-            update_post_meta($id, 'woo_ua_auction_end_date', date('Y-m-d H:i:s', strtotime($end, ' +1 minutes')));
+            update_post_meta($id, 'woo_ua_auction_end_date', date('Y-m-d H:i:s', ($end + 60)));
             
         } else {
 
