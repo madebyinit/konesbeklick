@@ -26,29 +26,29 @@ export const time = () => {
 
 export const price = () => {
 
-    $('#jump-from-internet form').submit(function(e) {
-        e.preventDefault();
+    // $('#jump-from-internet form').submit(function(e) {
+    //     e.preventDefault();
 
-        const field = $('#jump-from-internet #form-field-name').val();
-        const currentBid = document.getElementById('top-bid').textContent.replace(',', '');
-        const price = parseFloat(field) + parseFloat(currentBid);
-        const id = shimi_obj.post_id;
-        const userid = shimi_obj.user_id;
+    //     const field = $('#jump-from-internet #form-field-name').val();
+    //     const currentBid = document.getElementById('top-bid').textContent.replace(',', '');
+    //     const price = parseFloat(field) + parseFloat(currentBid);
+    //     const id = shimi_obj.post_id;
+    //     const userid = shimi_obj.user_id;
  
-        var form = {
-        action: 'admin_jump_price',
-        price,
-        id,
-        userid
-    } 
+    //     var form = {
+    //     action: 'admin_jump_price',
+    //     price,
+    //     id,
+    //     userid
+    // } 
 
-    $.post(shimi_obj.ajax_url, form, function(res) {
-        document.getElementById('top-bid').textContent = formatNumber(res[0]);
-        document.querySelectorAll('#bid-inc, #click-to-bid').forEach(item => item.textContent = formatNumber(res[1]));
+    // $.post(shimi_obj.ajax_url, form, function(res) {
+    //     document.getElementById('top-bid').textContent = formatNumber(res[0]);
+    //     document.querySelectorAll('#bid-inc, #click-to-bid').forEach(item => item.textContent = formatNumber(res[1]));
 
-        });
+    //     });
 
-    });
+    // });
 
 }
 

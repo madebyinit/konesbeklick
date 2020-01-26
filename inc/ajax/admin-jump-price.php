@@ -1,12 +1,21 @@
 <?php 
 
-function admin_jump_price() {
-    if(isset($_POST['price'])) {
+function admin_jump_price($is_ajax = true, $amount = null, $postid = null, $user_id = null, $proxy = 0) {
 
-        $price = $_POST['price'];
-        $id = $_POST['id'];
-        $userid = $_POST['userid'];
-        $bid = get_post_meta($id, 'topbid', true);
+    if(isset($_POST['price']) || ! $is_ajax) {
+
+        $price = ! empty($amount) ? $amount : $_POST['price'];
+        $id = ! empty($postid) ? $postid : $_POST['id'];
+        $userid = ! empty($user_id) ? $user_id : $_POST['userid'];
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'woo_ua_auction_log';
+
+        $results = $wpdb->get_var($wpdb->prepare(
+           "SELECT MAX(bid) FROM {$table_name} WHERE auction_id = %d", $id
+        ));
+
+        $bid = substr($results, 0, strpos($results, '.'));
 
         global $wpdb;
         $table_name = $wpdb->prefix . 'woo_ua_auction_log';
@@ -20,7 +29,7 @@ function admin_jump_price() {
             $userid, 
             $id, 
             $price,
-            0 
+            $proxy
         ));
 
         $bid_incrament = get_post_meta($id, 'woo_ua_bid_increment', true);
@@ -51,11 +60,16 @@ function admin_jump_price() {
 
         }
 
-        update_post_meta($id, 'topbid', $price);
-        wp_send_json([$price, $bid_incrament, $id, $userid, $new_time], 200);
+        update_post_meta($id, 'topbid', ($price + $bid));
+
+        if($is_ajax) {
+            wp_send_json([$price, $bid_incrament, $id, $userid, $new_time], 200);
+        }
     }
 
-    wp_send_json(["לא הזנת מחיר"], 200);
+    if($is_ajax) {
+        wp_send_json(["לא הזנת מחיר"], 200);
+    }
 }
 
 

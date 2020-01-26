@@ -20,6 +20,16 @@ function product_dashboard_actions($record, $handler) {
             add_time_to_auction($time, $post_id);
             break;
 
+        case 'add_internet_bid':
+            $amount = $raw_fields['amount']['value'];
+            add_internet_bid_to_auction($amount, $post_id);
+            break;
+
+        case 'add_hall_bid':
+            $amount = $raw_fields['amount']['value'];
+            add_hall_bid_to_auction($amount, $post_id);
+            break;    
+
         default:
             break;
     }
@@ -43,9 +53,14 @@ function product_dashboard_listener() {
 
                     if(form_name == 'update_increment') {
                         $('#bid-inc, #click-to-bid').text((parseInt($('#top-bid').html().replace(',', '')) + parseInt(values.amount.value)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                    } 
+
+                    else if(form_name == 'add_internet_bid' || form_name == 'add_hall_bid') {
+                        $('#top-bid').text((parseInt($('#top-bid').html().replace(',', '')) + parseInt(values.amount.value)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                        $('#bid-inc, #click-to-bid').text((parseInt($('#bid-inc').html().replace(',', '')) + parseInt(values.amount.value)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
                     }
 
-                    else if(form_name == 'update_time') {
+                    else {
                         window.location.reload();
                     }
                 });
@@ -78,6 +93,38 @@ function add_time_to_auction($time, $post_id) {
             update_post_meta($post_id, 'woo_ua_auction_end_date', $new_end_date);
         }
     }
+}
+
+function add_internet_bid_to_auction($amount, $postid) {
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'woo_ua_auction_log';
+
+    $results = $wpdb->get_var($wpdb->prepare(
+       "SELECT MAX(bid) FROM {$table_name} WHERE auction_id = %d", $postid
+    ));
+
+    $bid = substr($results, 0, strpos($results, '.'));
+
+    admin_jump_price(false, $amount + $bid, $postid, 1, 1);
+
+    return true;
+}
+
+function add_hall_bid_to_auction($amount, $postid) {
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'woo_ua_auction_log';
+
+    $results = $wpdb->get_var($wpdb->prepare(
+       "SELECT MAX(bid) FROM {$table_name} WHERE auction_id = %d", $postid
+    ));
+
+    $bid = substr($results, 0, strpos($results, '.'));
+
+    admin_jump_price(false, $amount + $bid, $postid, 1, 2);
+
+    return true;
 }
 
 function convert_time($hours, $minutes) {
