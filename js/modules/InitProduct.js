@@ -28,6 +28,11 @@ export default class InitProduct {
                 this.clickToBid();
             });
 
+            $('#auction-end-now').click((e) => {
+                e.preventDefault();
+                this.auctionEnd();
+            });
+
             this.upDateClock(this.api[0]);
 
             setInterval(() => {
@@ -38,7 +43,6 @@ export default class InitProduct {
 
     // methods
     topBid() {
-        console.log(this.api);
         $('#top-bid').text(formatNumber(this.api[2]));
     }
 
@@ -55,12 +59,21 @@ export default class InitProduct {
         }
 
         $.post(shimi_obj.ajax_url, form, (res) => {
-            console.log(res);
             $('#top-bid').text(formatNumber(parseInt(res[0])));
-            console.log($('#top-bid'));
             this.events();
-
             $('body').trigger('click');
+        });
+    }
+
+    auctionEnd() {
+        const form = {
+            action: 'admin_jump_time',
+            closed: 'closed',
+            id: this.id
+        }
+
+        $.post(shimi_obj.ajax_url, form, (res) => {
+            window.location.reload();
         });
     }
 

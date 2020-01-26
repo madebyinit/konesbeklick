@@ -8,9 +8,7 @@
             jQuery(function($) {
                 $('#biding').on('click', (e) => {
                     e.preventDefault();
-    
-                    console.log(shimi_obj.user_id);
-            
+                
                     if(shimi_obj.user_id == 0) {
                         $('#trigger-popup-reg').find('a').trigger('click');
                     } else {

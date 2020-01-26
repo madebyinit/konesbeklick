@@ -25,6 +25,12 @@ function admin_jump_time() {
         $now = date("Y-m-d H:i:s");
         update_post_meta( $id, 'woo_ua_auction_end_date', $now);
         update_post_meta( $id, 'woo_ua_lowest_price', 10000000);
+
+        wp_update_post(array(
+            'ID' =>  $id,
+            'post_status' => 'private'
+        ));
+        
         wp_send_json('המכרז יסתיים תוך מספר שניות...', 200);
     }
     
