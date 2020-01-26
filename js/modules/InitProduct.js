@@ -15,7 +15,7 @@ export default class InitProduct {
     }
 
     // events
-    events() {
+    events(initial = true) {
          $.getJSON(shimi_obj.root_url + '/wp-json/shimi/v1/timer?postid=' + this.id , (res) => {
             this.api = res;
 
@@ -24,41 +24,44 @@ export default class InitProduct {
             this.topBid();
             this.bidInc();
 
-            $('body').on('click', '#popup-accept-bid', (e) => {
-                e.preventDefault();
-                this.clickToBid();
-            });
-
-            $('#auction-end-now').click((e) => {
-                e.preventDefault();
-                this.auctionEnd();
-            });
-
-            this.upDateClock(this.api[0]);
-
-            setInterval(() => {
-                this.timer.timer(this.api, this.time);
-            }, 1000);
-
-            setInterval(() => {
-
-                var last_bid_id = $('.auction-bidding-history--offer').last().attr('data-bid-id');
-
-                $.getJSON(shimi_obj.root_url + '/wp-json/shimi/v1/bidding-history?postid=' + this.id + '&lastbid=' + last_bid_id + '&userid=' + this.user_id, (res) => {
-
-                    if(res.newbids) {
-                        $('.auction-bidding-history').find('.auction-bidding-history--offer.is-highest').removeClass('is-highest');
-
-                        $(res.newbids).hide().appendTo('.auction-bidding-history').fadeIn(() => {
-                            this.latestBidsScroll();
-                        });
-                    }
-
-                    if(res.timer) {
-                        this.upDateClock(res.timer);
-                    }
+            if(initial) {
+                
+                $('body').on('click', '#popup-accept-bid', (e) => {
+                    e.preventDefault();
+                    this.clickToBid();
                 });
-            }, 5000);
+    
+                $('#auction-end-now').click((e) => {
+                    e.preventDefault();
+                    this.auctionEnd();
+                });
+    
+                this.upDateClock(this.api[0]);
+    
+                setInterval(() => {
+                    this.timer.timer(this.api, this.time);
+                }, 1000);
+    
+                setInterval(() => {
+    
+                    var last_bid_id = $('.auction-bidding-history--offer').last().attr('data-bid-id');
+    
+                    $.getJSON(shimi_obj.root_url + '/wp-json/shimi/v1/bidding-history?postid=' + this.id + '&lastbid=' + last_bid_id + '&userid=' + this.user_id, (res) => {
+    
+                        if(res.newbids) {
+                            $('.auction-bidding-history').find('.auction-bidding-history--offer.is-highest').removeClass('is-highest');
+    
+                            $(res.newbids).hide().appendTo('.auction-bidding-history').fadeIn(() => {
+                                this.latestBidsScroll();
+                            });
+                        }
+    
+                        if(res.timer) {
+                            this.upDateClock(res.timer);
+                        }
+                    });
+                }, 5000);    
+            }
         });
     }
 
@@ -82,9 +85,8 @@ export default class InitProduct {
 
         $.post(shimi_obj.ajax_url, form, (res) => {
             $('#top-bid').text(formatNumber(parseInt(res[0])));
-            this.events();
+            this.events(false);
             $('body').trigger('click');
-
             this.upDateClock(this.api[4]);            
         });
     }
