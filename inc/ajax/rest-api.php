@@ -109,6 +109,20 @@ function shimiTimer() {
              $wpdb->prepare("SELECT * FROM {$table_name} WHERE auction_id = %d AND id > %d ORDER BY date ASC", $auction_id, $current_view_bid), ARRAY_A
          ); 
 
+         $end_time = get_post_meta($auction_id ,'woo_ua_auction_end_date', true);
+         $raw_time = strtotime($end_time) - strtotime("now");
+         $end_days = $raw_time / 60 / 60 / 24;
+         $end_hours = ($end_days - intval($end_days)) * 24;
+         $end_minutes = ($end_hours - intval($end_hours)) * 60;
+         $end_sec = ($end_minutes - intval($end_minutes)) * 60;
+         $end_hours = ($end_hours - 2) > 0 ? $end_hours - 2 : 0;
+
+         $times = array(
+            'hours'   => floor($end_days * 24),
+            'minutes' => floor($end_minutes),
+            'sec'     => floor($end_sec)
+         ); 
+
          ob_start();
          $contents = '';
 
@@ -151,11 +165,12 @@ function shimiTimer() {
 
            $contents = ob_get_contents();
            ob_end_clean();
-
-           return $contents;
          }
 
-         return false;
+         return array(
+            'newbids' => ! empty($contents) ? $contents : false,
+            'timer' => $times
+         );
      }
 
 ?>

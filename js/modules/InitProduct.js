@@ -46,12 +46,16 @@ export default class InitProduct {
 
                 $.getJSON(shimi_obj.root_url + '/wp-json/shimi/v1/bidding-history?postid=' + this.id + '&lastbid=' + last_bid_id + '&userid=' + this.user_id, (res) => {
 
-                    if(res) {
+                    if(res.newbids) {
                         $('.auction-bidding-history').find('.auction-bidding-history--offer.is-highest').removeClass('is-highest');
 
-                        $(res).hide().appendTo('.auction-bidding-history').fadeIn(() => {
+                        $(res.newbids).hide().appendTo('.auction-bidding-history').fadeIn(() => {
                             this.latestBidsScroll();
                         });
+                    }
+
+                    if(res.timer) {
+                        this.upDateClock(res.timer);
                     }
                 });
             }, 5000);
