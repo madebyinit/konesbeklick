@@ -51,7 +51,7 @@ function admin_jump_price() {
 
         }
 
-        update_post_meta($auction_id, 'topbid', $price);
+        update_post_meta($id, 'topbid', $price);
         wp_send_json([$price, $bid_incrament, $id, $userid, $new_time], 200);
     }
 
