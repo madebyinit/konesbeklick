@@ -31,7 +31,7 @@ function admin_jump_price() {
         $end_time = get_post_meta($id, 'woo_ua_auction_end_date', true);
         $end = strtotime($end_time);
 
-        if(strtotime('now +5 minutes') <= $end) {
+        if(strtotime('now +5 minutes') >= $end) {
 
             $new_time = array(
                 'hours' => date('H', $now_one_minute),
