@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import InitTimer from './InitTimer';
 
 export const remove = () => {
     const uwaElement = $('.uwa_auction_condition, #uwa_auction_countdown, p.uwa_more_details, .uwa_more_details_display, .buy-now cart, .uwa-watchlist-button, .uwa_inc_price_hint');
@@ -34,4 +35,30 @@ export const conf = () => {
       e.preventDefault();
     }
   });
+}
+
+export const homepageCountdown = () => {
+  var countdown_container = document.querySelector('#next-auction-end');
+
+  var form = {
+    action: 'next_closing_auction_countdown'
+  };
+
+  var time = {
+    h: countdown_container.querySelector('.hours'),
+    m: countdown_container.querySelector('.minutes'),
+    s: countdown_container.querySelector('.seconds')
+  }
+
+  var timer = new InitTimer();
+
+  var resMock = [{
+    'hours': time.h.textContent,
+    'minutes': time.m.textContent,
+    'sec': time.s.textContent
+  }];
+
+  setInterval(() => {
+    timer.timer(resMock, time, false);
+  }, 1000);
 }

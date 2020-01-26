@@ -61,6 +61,9 @@ misc.remove();
 misc.inputOffer();
 misc.changeText();
 
+if(document.querySelector('body').classList.contains('home')) {
+  misc.homepageCountdown();
+}
 
 // misc.conf();
 
