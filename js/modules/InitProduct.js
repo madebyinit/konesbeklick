@@ -25,7 +25,7 @@ export default class InitProduct {
             this.bidInc();
 
             if(initial) {
-                
+
                 $('body').on('click', '#popup-accept-bid', (e) => {
                     e.preventDefault();
                     this.clickToBid();
@@ -54,6 +54,9 @@ export default class InitProduct {
                             $(res.newbids).hide().appendTo('.auction-bidding-history').fadeIn(() => {
                                 this.latestBidsScroll();
                             });
+
+                            var sound = $('#new-bid-sound').attr('src');
+                            new Audio(sound).play()
                         }
     
                         if(res.timer) {

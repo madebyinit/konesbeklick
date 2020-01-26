@@ -14,6 +14,8 @@
         );
     ?>
 
+    <audio id="new-bid-sound" src="<?php echo get_theme_file_uri('/assets/eventually.mp3'); ?>"></audio>
+
     <div class="auction-bidding-history--wrapper">
         <ul class="auction-bidding-history">
         <?php foreach($offers as $offer_key => $offer): ?>
