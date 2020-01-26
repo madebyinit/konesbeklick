@@ -1,6 +1,6 @@
 <?php 
    function endbid_redirect() {
-       if(get_post_type() == 'product') {
+       if(get_post_type() == 'product' && ! current_user_can('administrator')) {
 
         global $post;
         $id = $post->ID;
