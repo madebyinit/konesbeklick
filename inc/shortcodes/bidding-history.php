@@ -17,7 +17,7 @@
     <div class="auction-bidding-history--wrapper">
         <ul class="auction-bidding-history">
         <?php foreach($offers as $offer_key => $offer): ?>
-            <li class="auction-bidding-history--offer <?php echo (count($offers) == $offer_key + 1 ? ' is-highest': ''); ?>">
+            <li class="auction-bidding-history--offer <?php echo (count($offers) == $offer_key + 1 ? ' is-highest': ''); ?>" data-bid-id="<?php echo $offer['id']; ?>">
 
                 <?php
                     $offer_timestamp = strtotime($offer['date']);

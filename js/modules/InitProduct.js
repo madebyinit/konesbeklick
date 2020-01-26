@@ -3,6 +3,7 @@ import $ from 'jquery';
 export default class InitProduct {
     constructor(timer) {
         this.id = shimi_obj.post_id;
+        this.user_id = shimi_obj.user_id;
         this.api;
         this.time = {
             h: document.getElementById('clock-h'),
@@ -38,8 +39,25 @@ export default class InitProduct {
             setInterval(() => {
                 this.timer.timer(this.api, this.time);
             }, 1000);
+
+            setInterval(() => {
+
+                var last_bid_id = $('.auction-bidding-history--offer').last().attr('data-bid-id');
+
+                $.getJSON(shimi_obj.root_url + '/wp-json/shimi/v1/bidding-history?postid=' + this.id + '&lastbid=' + last_bid_id + '&userid=' + this.user_id, (res) => {
+
+                    if(res) {
+                        $('.auction-bidding-history').find('.auction-bidding-history--offer.is-highest').removeClass('is-highest');
+
+                        $(res).hide().appendTo('.auction-bidding-history').fadeIn(() => {
+                            this.latestBidsScroll();
+                        });
+                    }
+                });
+            }, 5000);
         });
     }
+
 
     // methods
     topBid() {
@@ -63,7 +81,7 @@ export default class InitProduct {
             this.events();
             $('body').trigger('click');
 
-            this.upDateClock(this.api[4]);
+            this.upDateClock(this.api[4]);            
         });
     }
 
