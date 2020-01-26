@@ -12,7 +12,6 @@
                     if(shimi_obj.user_id == 0) {
                         $('#trigger-popup-reg').find('a').trigger('click');
                     } else {
-                        console.log($('#trigger-popup-reg').find('a'));
                         $('#trigger-popup-bid').find('a').trigger('click');
                     }
                 });    

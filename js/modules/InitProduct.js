@@ -62,6 +62,8 @@ export default class InitProduct {
             $('#top-bid').text(formatNumber(parseInt(res[0])));
             this.events();
             $('body').trigger('click');
+
+            this.upDateClock(this.api[4]);
         });
     }
 
