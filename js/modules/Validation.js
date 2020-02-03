@@ -1,7 +1,9 @@
 import $ from 'jquery';
 
 export default class Validation {
-    constructor() {
+    constructor(initial = true) {
+        this.initial = initial;
+        this.form = $('.form--one');
         this.fullname = $('.reg__field-section #name');
         this.email = $('.reg__field-section #email');
         this.tel = $('.reg__field-section #tel');
@@ -11,7 +13,10 @@ export default class Validation {
             success: false,
             alert: false
         }
-        this.events();
+        
+        if(initial) {
+            this.events();
+        }
     }
 
     events() {
@@ -20,6 +25,22 @@ export default class Validation {
         this.tel.on("input", this.validatTel.bind(this));
         this.pass.on("input", this.validatPass.bind(this));
         this.pass2.on("input", this.validatPass2.bind(this));
+    }
+
+    validatEmpty(key) {
+
+        const elem = this[key],
+              text = elem.val();
+
+        const condition = () => {
+            if(! text || text.length <= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return ! this.generalValidate(elem, text, condition, "שדה זה הינו שדה חובה");
     }
 
     validatFN() {
@@ -31,7 +52,7 @@ export default class Validation {
                 return false;
             }
         }
-        this.generalValidate(this.fullname, text, condition, "יש להכניס שם פרטי ושם משפחה");
+        return ! this.generalValidate(this.fullname, text, condition, "יש להכניס שם פרטי ושם משפחה");
     }
 
     validatEmail() {
@@ -45,7 +66,7 @@ export default class Validation {
             }
         }
 
-        this.generalValidate(this.email, text, condition, "שדה המייל צריך להכיל @ ולאחריו שם חברת המייל");
+        return ! this.generalValidate(this.email, text, condition, "שדה המייל צריך להכיל @ ולאחריו שם חברת המייל");
     }
 
     validatTel() {
@@ -59,7 +80,7 @@ export default class Validation {
                 return false;
             }
         }
-        this.generalValidate(this.tel, text, condition, "יש לרשום לפחות 9 ספרות");
+        return ! this.generalValidate(this.tel, text, condition, "יש לרשום לפחות 9 ספרות");
     }
 
     validatPass() {
@@ -72,7 +93,7 @@ export default class Validation {
                 return false
             }
         }
-        this.generalValidate(this.pass, text, condition, "יש לכתוב לפחות 6 תווים המשולבים מאותיות ומספרים");
+        return ! this.generalValidate(this.pass, text, condition, "יש לכתוב לפחות 6 תווים המשולבים מאותיות ומספרים");
     }
 
     minNumInPass(text) {
@@ -87,7 +108,7 @@ export default class Validation {
 
     validatPass2() {
         const text = this.pass2.val();
-      
+
         const condition = () => {
             if(text !== this.pass.val()) {
                 return true;
@@ -95,30 +116,32 @@ export default class Validation {
                 return false
             }
         }
-        this.generalValidate(this.pass2, text, condition, "דרושה התאמה מלאה בין הסיסמאות");
+        return ! this.generalValidate(this.pass2, text, condition, "דרושה התאמה מלאה בין הסיסמאות");
     }
 
     generalValidate(element ,input, condition, validatText) {
-        
+
         if(condition()) {
             this.message(element, validatText, "alert-message", "alert");
         } else {
-            element.siblings('p.alert-message').remove();
             this.message(element, "מצויין!", "success-message", "success");
         }
 
-        if(input.length == 0) {
+        if(input.length == 0 && this.initial) {
             this.status = {
                 success: false,
                 alert: false
             }
             element.siblings('p').remove();
         }
+
+        return condition();
     }
 
     message(element, mess, className, status) {
-        
-        if(!this.status[status]) {
+
+        if(!this.status[status] || ! this.initial) {
+            element.siblings('p').remove();
             $(element).parent().append(`<p class="${className}">${mess}</p>`);
         }
 

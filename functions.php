@@ -63,6 +63,9 @@ require_once(get_theme_file_path( '/inc/ajax/reg.php' ));
 add_action('wp_ajax_nopriv_shimi_reg', 'shimi_reg');
 add_action('wp_ajax_shimi_reg', 'shimi_reg');
 
+add_action('wp_ajax_nopriv_generate_cardcom_iframe', 'generate_cardcom_iframe');
+add_action('wp_ajax_generate_cardcom_iframe', 'generate_cardcom_iframe');
+
 require_once(get_theme_file_path( '/inc/ajax/rest-api.php' ));
 add_action('rest_api_init', 'shimiTimer');
 
@@ -89,5 +92,93 @@ remove_action('woocommerce_single_product_summary', 'woocommerce_template_single
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
+// Add the Kones Setup settings page
+if( function_exists('acf_add_options_page') ) {
+
+    // Register options page.
+    $option_page = acf_add_options_page(array(
+        'page_title'    => __('Kones Setup'),
+        'menu_title'    => __('Kones Setup'),
+        'menu_slug'     => 'kones-bclick-setup',
+        'capability'    => 'edit_posts',
+        'redirect'      => false,
+        'position'      => 2
+    ));
+}
+
+function redirect_to_thankyou_page() {
+
+    if(isset($_GET['redirect']) && $_GET['redirect'] == 'true' && ! isset($_GET['init'])) {
+        echo '<script>parent.location.href = window.location.href + "&init=true";</script>';
+    }
+}
+add_action('wp_footer', 'redirect_to_thankyou_page');
+
+function create_new_user() {
+
+    if(isset($_GET['lowprofilecode']) && isset($_GET['terminalnumber'])) {
+
+        $vars = array( 
+            'TerminalNumber' => get_field('cardcom_terminal_number', 'option'),
+            'UserName' => get_field('cardcom_username', 'option'),
+            'LowProfileCode' => $_GET['lowprofilecode']
+        );
+            
+        $urlencoded = http_build_query($vars);
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://secure.cardcom.solutions/Interface/BillGoldGetLowProfileIndicator.aspx');
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $urlencoded);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+    
+        $response = curl_exec($curl);
+        curl_close($curl);
+    
+        $output = array();
+        parse_str($response, $output);
+
+        if ($output['ResponseCode'] == '0' && $output['OperationResponse'] == '0') {
+
+            $data = json_decode($output['ReturnValue'], JSON_UNESCAPED_SLASHES);
+
+            $name = $data['fullname'];
+            $email = $data['email'];
+            $tel = $data['tel'];
+            $pass = $data['pass'];    
+
+            $user_id = wp_insert_user(array(
+                'user_login' => $email,
+                'user_pass'  => $pass,
+                'user_email' => $email,
+                'first_name' => explode(' ', $name)[0],
+                'last_name'  => explode(' ', $name)[1]
+            ));
+        
+            if(! is_wp_error($user_id) ) {
+
+                $creds = [];
+                $creds['user_login'] = $email;
+                $creds['user_password'] = $pass;
+                $creds['remember'] = true;
+                $user = wp_signon( $creds, false );
+        
+                update_user_meta($user_id, 'billing_phone', $tel);
+
+                // Update the user's credit card meta info
+                update_field('cc_token', $output['Token'], 'user_' . $user_id);
+                update_field('cc_token_exp', $output['TokenExDate'], 'user_' . $user_id);
+                update_field('cc_id_number', $output['CardOwnerID'], 'user_' . $user_id);
+                update_field('cc_exp_date_month', $output['CardValidityYear'], 'user_' . $user_id);
+                update_field('cc_exp_date_year', $output['CardValidityMonth'], 'user_' . $user_id);
+                update_field('cc_token_approval_no', $output['TokenApprovalNumber'], 'user_' . $user_id);
+            }
+        }
+    }    
+}
+add_action('template_redirect', 'create_new_user');
 
 ?>

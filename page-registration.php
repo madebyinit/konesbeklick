@@ -18,23 +18,23 @@
             <form id="form--one" action="">
                 <div class="reg__field-section">
                     <label for="name">שם</label>
-                    <input name="name" type="text" id="name" placeholder="שם מלא" required="required" aria-required="true">
+                    <input name="name" type="text" id="name" placeholder="שם מלא" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <label for="email">אימייל</label>
-                    <input type="email" id="email" name="email" placeholder="אימייל" required="required" aria-required="true">
+                    <input type="email" id="email" name="email" placeholder="אימייל" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <label for="tel">טלפון</label>
-                    <input type="tel" id="tel" name="tel" placeholder="טלפון" pattern="[0-9()#&+*-=.]+" title="מותר להשתמש רק במספרים ותווי טלפון (#, -, *, וכו')." required="required" aria-required="true">
+                    <input type="tel" id="tel" name="tel" placeholder="טלפון" pattern="[0-9()#&+*-=.]+" title="מותר להשתמש רק במספרים ותווי טלפון (#, -, *, וכו')." aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <label for="pass">סיסמה</label>
-                    <input type="password" id="pass" name="pass" placeholder="סיסמה" required="required" aria-required="true">
+                    <input type="password" id="pass" name="pass" placeholder="סיסמה" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <label for="pass2">אימות סיסמה</label>
-                    <input type="password" id="pass2" name="pass2" placeholder="אימות סיסמה" required="required" aria-required="true">
+                    <input type="password" id="pass2" name="pass2" placeholder="אימות סיסמה" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <input id="step-one-form" type="submit" value="המשך לשלב הבא" name="submit">
@@ -51,11 +51,11 @@
             <form action="">
                 <div class="reg__field-section">
                     <label for="numcard">מספר כרטיס</label>
-                    <input type="text" id="numcard" name="numcard" placeholder="מספר כרטיס" required="required" aria-required="true">
+                    <input type="text" id="numcard" name="numcard" placeholder="מספר כרטיס" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <label for="monthcard">תוקף כרטיס - חודש</label>
-                    <select id="monthcard" name="monthcard" required="required" aria-required="true">
+                    <select id="monthcard" name="monthcard" aria-required="true">
                         <option value="00">תוקף כרטיס - חודש</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="reg__field-section">
                     <label for="yearcard">תוקף כרטיס - שנה</label>
-                    <select id="yearcard" name="yearcard" required="required" aria-required="true">
+                    <select id="yearcard" name="yearcard" aria-required="true">
                     <option value="0000">תוקף כרטיס - שנה</option>
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
@@ -87,11 +87,11 @@
                 </div>
                 <div class="reg__field-section">
                     <label for="cvv">cvv</label>
-                    <input type="text" name="cvv" id="cvv" placeholder="cvv" required="required" aria-required="true">
+                    <input type="text" name="cvv" id="cvv" placeholder="cvv" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <label for="passportid">מספר זהות</label>
-                    <input type="text" id="passportid" name="passportid" placeholder="מספר זהות" required="required" aria-required="true">
+                    <input type="text" id="passportid" name="passportid" placeholder="מספר זהות" aria-required="true">
                 </div>
                 <div class="reg__field-section">
                     <input type="submit" value="המשך לשלב הבא">
