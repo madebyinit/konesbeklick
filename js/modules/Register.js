@@ -34,7 +34,7 @@ export const register = () => {
           tel: $('#tel').val(),
           pass: $('#pass').val(),
           pass2: $('#pass2').val(),
-          referrer: document.referrer,
+          referrer: document.referrer.length <= 0 ? $('#home_url').val() : document.referrer,
           privacy_policy: $('#privacy_policy').is(':checked') ? 'true' : ''
         }
 
@@ -64,6 +64,9 @@ export const register = () => {
           is_valid = ! validation.validatPass2() ? false : is_valid;
 
           if(is_valid) {
+
+            window.localStorage.setItem('registration-email', data.email);
+            window.localStorage.setItem('registration-referrer', data.referrer);
             
             $.ajax({
               url: shimi_obj.ajax_url,

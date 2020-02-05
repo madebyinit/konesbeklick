@@ -42,6 +42,8 @@
                     <input type="checkbox" id="privacy_policy" name="privacy_policy" aria-required="true">
                     <label for="privacy_policy">אני מאשר כי קראתי ואת הסכמתי ל<a href="<?php echo esc_url(site_url('/תקנון-אתר')); ?>" target="_blank">תנאי השימוש</a> של כונס נכסים בקליק.</label>
                 </div>
+
+                <input type="hidden" name="home_url" id="home_url" value="<?php echo get_home_url(); ?>" />
             </form>
         </div>
     </div>

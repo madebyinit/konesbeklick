@@ -108,8 +108,11 @@ if( function_exists('acf_add_options_page') ) {
 
 function redirect_to_thankyou_page() {
 
-    if(isset($_GET['redirect']) && $_GET['redirect'] == 'true' && ! isset($_GET['init'])) {
-        echo '<script>parent.location.href = "' . $_GET['referrer'] . '&init=true";</script>';
+    if(get_the_ID() == get_page_by_path('/thank-you-registration')->ID) {
+        echo '<script>
+            var referrer = window.localStorage.getItem("registration-referrer");
+            parent.location.href = referrer;
+        </script>';
     }
 }
 add_action('wp_footer', 'redirect_to_thankyou_page');
@@ -159,12 +162,6 @@ function create_new_user() {
             ));
         
             if(! is_wp_error($user_id) ) {
-
-                $creds = [];
-                $creds['user_login'] = $email;
-                $creds['user_password'] = $pass;
-                $creds['remember'] = true;
-                $user = wp_signon( $creds, false );
         
                 update_user_meta($user_id, 'billing_phone', $tel);
 
