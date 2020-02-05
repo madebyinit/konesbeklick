@@ -31,7 +31,7 @@ export default class Validation {
     validatEmpty(key, val = false) {
 
         const elem = this[key],
-              text = ! val ? val : elem.val();
+              text = val !== false ? val : elem.val();
               
         const condition = () => {
             if(! text || text.length <= 0) {
