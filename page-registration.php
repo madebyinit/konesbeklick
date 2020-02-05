@@ -7,9 +7,6 @@
     ברוכים הבאים לכונס נכסים בקליק.
     <br>
     יש להירשם כדי להציע הצעת מחיר.
-    <br>
-    מומלץ לקרוא את
-    <a href="<?php echo esc_url(site_url('/תקנון-אתר')); ?>">תנאי השימוש.</a>
     </p>
 
     <div class="reg">
@@ -43,7 +40,7 @@
                 </div>
                 <div class="reg__field-section full-width">
                     <input type="checkbox" id="privacy_policy" name="privacy_policy" aria-required="true">
-                    <label for="privacy_policy">אני מאשר כי קראתי ואת הסכמתי ל<a href="/%D7%AA%D7%A7%D7%A0%D7%95%D7%9F-%D7%90%D7%AA%D7%A8" target="_blank">תנאי השימוש</a> של כונס נכסים בקליק.</label>
+                    <label for="privacy_policy">אני מאשר כי קראתי ואת הסכמתי ל<a href="<?php echo esc_url(site_url('/תקנון-אתר')); ?>" target="_blank">תנאי השימוש</a> של כונס נכסים בקליק.</label>
                 </div>
             </form>
         </div>

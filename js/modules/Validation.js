@@ -9,6 +9,7 @@ export default class Validation {
         this.tel = $('.reg__field-section #tel');
         this.pass = $('.reg__field-section #pass');
         this.pass2 = $('.reg__field-section #pass2');
+        this.privacy_policy = $('.reg__field-section #privacy_policy');
         this.status = {
             success: false,
             alert: false
@@ -27,11 +28,11 @@ export default class Validation {
         this.pass2.on("input", this.validatPass2.bind(this));
     }
 
-    validatEmpty(key) {
+    validatEmpty(key, val = false) {
 
         const elem = this[key],
-              text = elem.val();
-
+              text = ! val ? val : elem.val();
+              
         const condition = () => {
             if(! text || text.length <= 0) {
                 return true;

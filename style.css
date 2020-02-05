@@ -810,7 +810,7 @@ Registration
     padding: 15px 20px;
 }
 
-.reg__form label {
+.reg__form label:not([for="privacy_policy"]) {
     position: absolute;
     top: 0;
     width: 1px;
@@ -838,7 +838,11 @@ Registration
     display: none;
 }
 
-.reg__field-section > input {
+.reg__field-section.full-width {
+    grid-column: 1 / -1;
+}
+
+.reg__field-section > input:not([type="checkbox"]) {
     width: 100%;
     font-family: "Open Sans Hebrew", Sans-serif;
     font-weight: 400;

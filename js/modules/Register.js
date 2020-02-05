@@ -34,7 +34,8 @@ export const register = () => {
           tel: $('#tel').val(),
           pass: $('#pass').val(),
           pass2: $('#pass2').val(),
-          referrer: document.referrer
+          referrer: document.referrer,
+          privacy_policy: $('#privacy_policy').is(':checked') ? 'true' : ''
         }
 
         const validation = new Validation(false);
@@ -42,10 +43,15 @@ export const register = () => {
 
         $.each(data, function(key) {
 
-          if(key !== 'action' && key !== 'referrer') {
+          if(key !== 'action' && key !== 'referrer' && key !== 'privacy_policy') {
             if(! validation.validatEmpty(key)) {
               is_valid = false;
-            }  
+            }
+          } else if(key === 'privacy_policy') {
+
+            if(! validation.validatEmpty(key, data.privacy_policy)) {
+              is_valid = false;
+            }
           }
         });
 
