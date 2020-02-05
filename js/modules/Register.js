@@ -65,8 +65,15 @@ export const register = () => {
 
           if(is_valid) {
 
-            window.localStorage.setItem('registration-email', data.email);
-            window.localStorage.setItem('registration-referrer', data.referrer);
+            var now = new Date();
+            var five_minutes = new Date(now.getTime() + 5 * 60000).toISOString();
+
+            document.cookie = 'registration-email=' + data.email + '; expires=' + five_minutes + '; path=/';
+
+            var referrer_url = new URL(data.referrer);
+            referrer_url.searchParams.append('login', 'true');
+
+            window.localStorage.setItem('registration-referrer', referrer_url);
             
             $.ajax({
               url: shimi_obj.ajax_url,

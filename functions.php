@@ -117,6 +117,24 @@ function redirect_to_thankyou_page() {
 }
 add_action('wp_footer', 'redirect_to_thankyou_page');
 
+function sign_in_user() {
+
+    if(isset($_GET['login']) && $_GET['login'] == 'true') {
+
+        $user_email = $_COOKIE['registration-email'];
+
+        if($user_email && ! empty($user_email)) {
+            $user = get_user_by('email', $user_email);
+            $user_id = $user->ID;
+
+            wp_set_current_user($user_id, $user_email);
+            wp_set_auth_cookie($user_id);
+            do_action('wp_login', $user_email, $user_id);    
+        }
+    }
+}
+add_action('template_redirect', 'sign_in_user');
+
 function create_new_user() {
 
     if(isset($_GET['lowprofilecode']) && isset($_GET['terminalnumber'])) {
