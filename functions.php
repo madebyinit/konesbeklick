@@ -127,7 +127,7 @@ function sign_in_user() {
             $user = get_user_by('email', $user_email);
             $user_id = $user->ID;
 
-            wp_set_current_user($user_id, $user_email);
+            wp_set_current_user($user_id);
             wp_set_auth_cookie($user_id);
             do_action('wp_login', $user_email, $user_id);    
         }
