@@ -23,7 +23,7 @@ function generate_cardcom_iframe() {
         'Language' => 'he',
         'ProductName' => get_field('cardcom_test_product_name', 'option'),
         'APILevel' => 10,
-        'SuccessRedirectUrl' => $referrer . '?redirect=true',
+        'SuccessRedirectUrl' => get_home_url() . '/thank-you-registration?redirect=true&referrer=' . $referrer,
         'ErrorRedirectUrl' => get_home_url(),
         'IndicatorUrl' => get_home_url() . '?action=new_user',
         'CardOwnerName' => $fields['fullname'],

@@ -109,7 +109,7 @@ if( function_exists('acf_add_options_page') ) {
 function redirect_to_thankyou_page() {
 
     if(isset($_GET['redirect']) && $_GET['redirect'] == 'true' && ! isset($_GET['init'])) {
-        echo '<script>parent.location.href = window.location.href + "&init=true";</script>';
+        echo '<script>parent.location.href = "' . $_GET['referrer'] . '&init=true";</script>';
     }
 }
 add_action('wp_footer', 'redirect_to_thankyou_page');
