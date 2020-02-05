@@ -753,9 +753,19 @@ Registration
 **************/
 
 .reg-container {
+    padding: 48px 0;
     max-width: 893px;
     margin: auto;
     background-color: #FFF;
+}
+
+.reg-container h1,
+.reg-container p {
+    font-family: 'Open Sans Hebrew', sans-serif;
+}
+
+.reg-container h1 {
+    margin-bottom: 24px;
 }
 
 .reg-container--modal {

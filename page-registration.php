@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 
 <main class="reg-container">
+    <h1>הרשמה</h1>
+
     <p>
     ברוכים הבאים לכונס נכסים בקליק.
     <br>
@@ -38,6 +40,10 @@
                 </div>
                 <div class="reg__field-section">
                     <input id="step-one-form" type="submit" value="המשך לשלב הבא" name="submit">
+                </div>
+                <div class="reg__field-section full-width">
+                    <input type="checkbox" id="privacy_policy" name="privacy_policy" aria-required="true">
+                    <label for="privacy_policy">אני מאשר כי קראתי ואת הסכמתי ל<a href="/%D7%AA%D7%A7%D7%A0%D7%95%D7%9F-%D7%90%D7%AA%D7%A8" target="_blank">תנאי השימוש</a> של כונס נכסים בקליק.</label>
                 </div>
             </form>
         </div>
