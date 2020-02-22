@@ -30,10 +30,12 @@
                 <div class="reg__field-section">
                     <label for="pass">סיסמה</label>
                     <input type="password" id="pass" name="pass" placeholder="סיסמה" aria-required="true">
+                    <span toggle="#pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <div class="reg__field-section">
                     <label for="pass2">אימות סיסמה</label>
                     <input type="password" id="pass2" name="pass2" placeholder="אימות סיסמה" aria-required="true">
+                    <span toggle="#pass2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <div class="reg__field-section">
                     <input id="step-one-form" type="submit" value="המשך לשלב הבא" name="submit">

@@ -6,6 +6,19 @@ import Validation from './Validation';
 
 export const register = () => {
 
+    $(".toggle-password").click(function() {
+      console.log('adasd');
+      $(this).toggleClass("fa-eye fa-eye-slash");
+
+      var input = $($(this).attr("toggle"));
+
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
+
     $(document).on('click', '.reg__step', (e) => {
     
         const target = $(e.target.closest('div'));
@@ -57,7 +70,6 @@ export const register = () => {
 
         if(is_valid) {
 
-          is_valid = ! validation.validatFN() ? false : is_valid;
           is_valid = ! validation.validatEmail() ? false : is_valid;
           is_valid = ! validation.validatTel() ? false : is_valid;
           is_valid = ! validation.validatPass() ? false : is_valid;

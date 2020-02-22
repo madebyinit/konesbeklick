@@ -21,7 +21,6 @@ export default class Validation {
     }
 
     events() {
-        this.fullname.on("input", this.validatFN.bind(this));
         this.email.on("input", this.validatEmail.bind(this));
         this.tel.on("input", this.validatTel.bind(this));
         this.pass.on("input", this.validatPass.bind(this));

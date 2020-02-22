@@ -27,7 +27,7 @@
                     $offer_date = date('d.m.Y', $offer_timestamp);
 
                     $is_manager = current_user_can('manage_woocommerce') || current_user_can('administrator');
-                    $offer_type = $offer['proxy'] == 0 ? (count($offers) == $offer_key + 1 ? ' הצעה מובילה': ' הצעה מתחרה') : ($offer['proxy'] == 1 ? ($is_manager ? 'אני' : 'הקפצה מהאינטרנט') : ($is_manager ? 'אני' : 'הקפצה מהאולם'));
+                    $offer_type = $offer['proxy'] == 0 ? ($offer['userid'] == get_current_user_id() ? 'ההצעה שלי ' : (count($offers) == $offer_key + 1 ? ' הצעה מובילה': ' הצעה מתחרה')) : ($offer['proxy'] == 1 ? ($is_manager ? 'אני' : 'הקפצה מהאינטרנט') : ($is_manager ? 'אני' : 'הקפצה מהאולם'));
                 ?>
 
                 <div>
@@ -39,8 +39,8 @@
                     <?php if($is_manager && $offer['proxy'] == 0): ?>
                     <small>
                         <?php
-                            $user_info = get_userdata($offer['userid']);
-                            printf('%s | %s', $user_info->first_name .  ' ' . $user_info->last_name, get_user_meta($offer['userid'], 'billing_phone', true));
+                        printf('%s | %s', get_user_meta( $offer['userid'], 'first_name', true )
+                        .  ' ' . get_user_meta( $offer['userid'], 'last_name', true), get_user_meta($offer['userid'], 'billing_phone', true));
                         ?>
                     </small>
                     <?php endif; ?>

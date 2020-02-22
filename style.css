@@ -838,8 +838,27 @@ Registration
     display: none;
 }
 
+.reg__form--two iframe {
+    border: 0;
+    height: 650px;
+}
+
 .reg__field-section.full-width {
     grid-column: 1 / -1;
+}
+
+.reg__field-section.full-width label[for="privacy_policy"] {
+    display: inline;
+}
+
+.reg__field-section {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 12px;
+    left: 10px;
 }
 
 .reg__field-section > input:not([type="checkbox"]) {
@@ -1048,4 +1067,18 @@ body:not(.elementor-editor-active) .single-product-admin-dashboard:not(.user-can
     display: flex;
     flex-direction: column;
     margin-left: auto;
+}
+
+@media only screen and (max-width: 990px) {
+
+    .reg__form > form {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .reg__form > form {
+        grid-template-columns: 100%;
+    }
 }
